@@ -1,0 +1,31 @@
+<?php
+    include "include/header.php";
+    include "include/nav.php";
+    include "koneksi.php";
+
+    // Initialize search query variable
+    $searchQuery = "";
+
+    // Check if a search term is set and not empty
+    if (!empty($_GET['search'])) {
+        $searchTerm = mysqli_real_escape_string($koneksi, $_GET['search']);
+        $searchQuery = "WHERE nm_siswa LIKE '%$searchTerm%' OR nis LIKE '%$searchTerm%'";
+    }
+
+    // Prepare the main query with optional search condition
+    $query = "SELECT * FROM siswa $searchQuery";  // Concatenate $searchQuery
+    $data = mysqli_query($koneksi, $query);  // Execute the query
+
+    // Check for SQL errors
+    if (!$data) {
+        echo "Error executing query: " . mysqli_error($koneksi);
+        exit;
+    }
+
+    // Check if any results were returned
+    if (mysqli_num_rows($data) === 0) {
+        $message = "Data Tidak Ditemukan";
+    } else {
+        $message = "";  // Reset message if results exist
+    }
+    ?>
