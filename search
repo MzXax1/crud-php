@@ -29,3 +29,9 @@
         $message = "";  // Reset message if results exist
     }
     ?>
+
+  <!-- Search Form -->
+        <form method="GET" class="mb-3 d-flex justify-content-center">
+            <input class="form-control w-50" type="text" name="search" placeholder="Search by Name or NIS" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
+            <button type="submit" class="btn btn-primary ms-2">Search</button>
+        </form>
